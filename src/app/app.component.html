@@ -1,0 +1,29 @@
+<h4 class="bg-primary text-white p-2">Check for duplicate names</h4>
+
+<div [formGroup]="formArray">
+  <div
+    class="px-3 py-1"
+    *ngFor="let group of formArray.controls;let i = index;"
+    [formGroup]="group"
+  >
+    Name <input formControlName="name" />
+    <small
+      class="d-block text-danger"
+      *ngIf="group.get('name').errors?.duplicated"
+    >
+      Duplicate GSTIN
+    </small>
+    <small
+      class="d-block text-danger"
+      *ngIf="group.get('name').errors?.invalid && (group.get('name').errors?.dirty || group.get('name').errors?.touched)"
+    >
+    <span *ngIf="group.get('name').errors.required">
+      GSTIN required
+    </span>
+    </small>
+    <button (click)="addMore()">add</button>
+    <button (click)="removePP(i)">remove</button>
+  </div>
+</div>
+<button (click)="saveForm()">submit</button>
+<hr />
